@@ -2,9 +2,9 @@ library api_response;
 
 ///Base API response
 abstract class APIResponse<R, F> {
-  void fold(
-    void Function(R data) onSuccess,
-    void Function(F failure) onError,
+  B fold<B>(
+    B Function(R data) onSuccess,
+    B Function(F failure) onError,
   );
 }
 
@@ -16,11 +16,11 @@ class FailureResponse<R, F> extends APIResponse<R, F> {
   });
 
   @override
-  void fold(
-    void Function(R data) onSuccess,
-    void Function(F failure) onError,
+  B fold<B>(
+    B Function(R data) onSuccess,
+    B Function(F failure) onError,
   ) {
-    onError(failure);
+    return onError(failure);
   }
 }
 
@@ -32,10 +32,10 @@ class SuccessResponse<R, F> extends APIResponse<R, F> {
   });
 
   @override
-  void fold(
-    void Function(R data) onSuccess,
-    void Function(F failure) onError,
+  B fold<B>(
+    B Function(R data) onSuccess,
+    B Function(F failure) onError,
   ) {
-    onSuccess(data);
+    return onSuccess(data);
   }
 }
